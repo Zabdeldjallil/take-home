@@ -22,12 +22,6 @@ export class Pharmacy {
             if (this.drugs[i].name != "Magic Pill"&& this.drugs[i].name!=="Dafalgan") {
               this.drugs[i].benefit = this.drugs[i].benefit - 1;
             }
-            // if (this.drugs[i].name === "Dafalgan"&&this.drugs[i].expiresIn>0) {
-            //   this.drugs[i].benefit = this.drugs[i].benefit - 2;
-            // }
-            // if(this.drugs[i].name === "Dafalgan"&&this.drugs[i].expiresIn===0){
-            //   this.drugs[i].benefit = this.drugs[i].benefit - 4;
-            // }
           }
         } else {
           if (this.drugs[i].benefit < 50&&this.drugs[i].name!=="Dafalgan") {
