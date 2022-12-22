@@ -22,9 +22,24 @@ describe("Pharmacy", () => {
     ).toEqual([new Drug("Herbal Tea", -1, 4)]);
   })
   it('should make sure no drug has a benefit bigger than 50', () => {
-    expect(
+    expect(()=>{
       new Pharmacy([new Drug("test", 5, 55)]).updateBenefitValue()
-    ).toEqual([new Drug("test", 5, 55)]);
+    }
+    ).toThrowError("can't be more than 50")
+
+    expect(()=>{
+      new Pharmacy([new Drug("Herbal Tea", 5, 55)]).updateBenefitValue()
+    }
+    ).toThrowError("can't be more than 50")
+    expect(()=>{
+      new Pharmacy([new Drug("Magic Pill", 5, 55)]).updateBenefitValue()
+    }
+    ).toThrowError("can't be more than 50")
+
+    expect(()=>{
+      new Pharmacy([new Drug("Fervex", 5, 55)]).updateBenefitValue()
+    }
+    ).toThrowError("can't be more than 50")
   })
   it('assumes Magic Pill never expires nor decreases in Benefit', () => {
     expect(
