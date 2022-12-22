@@ -15,18 +15,22 @@ export class Pharmacy {
     if(this.drugs[i].benefit<=50){
         if (
           this.drugs[i].name != "Herbal Tea" &&
-            this.drugs[i].name != "Fervex"
+            this.drugs[i].name != "Fervex"&&
+            this.drugs[i].name!=="Dafalgan"
         ) {
           if (this.drugs[i].benefit > 0) {
             if (this.drugs[i].name != "Magic Pill"&& this.drugs[i].name!=="Dafalgan") {
               this.drugs[i].benefit = this.drugs[i].benefit - 1;
             }
-            if (this.drugs[i].name === "Dafalgan") {
-              this.drugs[i].benefit = this.drugs[i].benefit - 2;
-            }
+            // if (this.drugs[i].name === "Dafalgan"&&this.drugs[i].expiresIn>0) {
+            //   this.drugs[i].benefit = this.drugs[i].benefit - 2;
+            // }
+            // if(this.drugs[i].name === "Dafalgan"&&this.drugs[i].expiresIn===0){
+            //   this.drugs[i].benefit = this.drugs[i].benefit - 4;
+            // }
           }
         } else {
-          if (this.drugs[i].benefit < 50) {
+          if (this.drugs[i].benefit < 50&&this.drugs[i].name!=="Dafalgan") {
             this.drugs[i].benefit = this.drugs[i].benefit + 1;
             if (this.drugs[i].name == "Fervex") {
               if (this.drugs[i].expiresIn < 11) {
@@ -42,27 +46,37 @@ export class Pharmacy {
             }
           }
         }
+        if (this.drugs[i].name === "Dafalgan"&&this.drugs[i].expiresIn>0) {
+              this.drugs[i].benefit = this.drugs[i].benefit - 2 >=0 ? this.drugs[i].benefit -2:this.drugs[i].benefit 
+            }
+        if(this.drugs[i].name === "Dafalgan"&&this.drugs[i].expiresIn<=0){
+              this.drugs[i].benefit = this.drugs[i].benefit - 4>=0?this.drugs[i].benefit-4:this.drugs[i].benefit
+            }
         if (this.drugs[i].name != "Magic Pill") {
           this.drugs[i].expiresIn = this.drugs[i].expiresIn - 1;
         }
         if (this.drugs[i].expiresIn < 0) {
-          if (this.drugs[i].name != "Herbal Tea") {
-            if (this.drugs[i].name != "Fervex") {
-              if (this.drugs[i].benefit > 0) {
-                if (this.drugs[i].name != "Magic Pill") {
-                  this.drugs[i].benefit = this.drugs[i].benefit - 1;
+        if(this.drugs[i].name!=="Dafalgan"){
+            if (this.drugs[i].name != "Herbal Tea") {
+              if (this.drugs[i].name != "Fervex") {
+                if (this.drugs[i].benefit > 0) {
+                  if (this.drugs[i].name != "Magic Pill") {
+                    this.drugs[i].benefit = this.drugs[i].benefit - 1;
+                  }
                 }
+              } else {
+                this.drugs[i].benefit =
+                  this.drugs[i].benefit - this.drugs[i].benefit;
               }
             } else {
-              this.drugs[i].benefit =
-                this.drugs[i].benefit - this.drugs[i].benefit;
-            }
-          } else {
-            if (this.drugs[i].benefit < 50) {
-              this.drugs[i].benefit = this.drugs[i].benefit + 1;
+              if (this.drugs[i].benefit < 50) {
+                this.drugs[i].benefit = this.drugs[i].benefit + 1;
+              }
             }
           }
         }
+      }else {
+        throw  new Error("can't be more than 50")
       }
     }
 
